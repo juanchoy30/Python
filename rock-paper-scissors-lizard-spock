@@ -1,0 +1,102 @@
+# GUI-based version of RPSLS
+
+###################################################
+# Student should add code where relevant to the following.
+
+import simplegui
+import random
+
+# Functions that compute RPSLS
+
+def name_to_number(name):
+    if name == "rock":
+        return 0
+    elif name == "Spock":
+        return 1
+    elif name == "paper":
+        return 2
+    elif name == "lizard":
+        return 3
+    elif name == "scissors":
+        return 4
+    else:
+        return 5
+
+def number_to_name(number):
+    if number == 0:
+        return "rock"
+    elif number == 1:
+        return "Spock"
+    elif number == 2:
+        return "paper"
+    elif number == 3:
+        return "lizard"
+    elif number == 4:
+        return "Scissors"
+
+def computer_choice(input):
+    return random.randrange(0,5)
+
+###########
+def piedra():
+    global guess
+    guess = "rock"
+    get_guess(guess)
+    
+def tijera():
+    global guess
+    guess = "scissors"
+    get_guess(guess)
+    
+def papel():
+    global guess
+    guess = "paper"
+    get_guess(guess)
+    
+def lagartija():
+    global guess
+    guess = "lizard"
+    get_guess(guess)
+
+def toche():
+    global guess
+    guess = "Spock"
+    get_guess(guess)
+    
+###########
+
+# Handler for input field
+
+def get_guess(guess):
+    a = name_to_number(guess)
+    b = computer_choice(guess)
+    if a == 5:
+        print "Error: Bad input "", gess, "" to rpsls"
+        print " "
+    else:
+        print "Player has chosen", guess
+        print "Computer has chosen", number_to_name(b)
+        c = (a - b) % 5
+        d = (b - a) % 5
+        if c < d:
+            print "Player wins!!"
+            print " "
+        elif c == d:
+            print "There is a tie!!"
+            print " "
+        else:
+            print "Computer wins you sucker!!!"
+            print " "
+    
+
+# Create frame and assign callbacks to event handlers
+frame = simplegui.create_frame("GUI-based RPSLS", 200, 200)
+frame.add_input("Enter guess for RPSLS", get_guess, 200)
+button_rock = frame.add_button("ROCK", piedra, 200)
+button_scissors = frame.add_button("SCISSORS", tijera, 200)
+button_paper = frame.add_button("PAPER", papel, 200)
+button_lizard = frame.add_button("LIZARD", lagartija, 200)
+button_spock = frame.add_button("SPOCK", toche, 200)
+
+# Start the frame animation
+frame.start()
